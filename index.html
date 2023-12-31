@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="number"] {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        label {
+            margin-left: 10px;
+        }
+
+        #submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submit:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Book Title" />
+    <input type="text" id="author" placeholder="Author" />
+    <input type="number" id="pages" placeholder="Number of Pages" />
+    <label for="read">Have Read:</label>
+    <input type="checkbox" id="read" name="read" />
+    <button id="submit">Submit</button>
+
+    <div class="container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Have Read</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- JavaScript remains the same -->
+    <script>
+        const myLibrary = [];
+  
+        class Book {
+          constructor(title, author, pages, haveRead) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.haveRead = haveRead;
+          }
+        }
+  
+        function addBookToLibrary(title, author, pages, haveRead) {
+          const book = new Book(title, author, pages, haveRead);
+          myLibrary.push(book);
+          displayLibrary();
+        }
+  
+        function displayLibrary() {
+          const table = document.getElementById("dataTable");
+          tableBody = table.querySelector("tbody");
+          tableBody.innerHTML = "";
+  
+          for (const book of myLibrary) {
+            row = tableBody.insertRow();
+            row.insertCell(0).textContent = book.title;
+            row.insertCell(1).textContent = book.author;
+            row.insertCell(2).textContent = book.pages;
+            row.insertCell(3).textContent = book.haveRead ? "Yes" : "No";
+          }
+        }
+  
+        document.getElementById("submit").addEventListener("click", function () {
+          const title = document.getElementById("name").value;
+          const author = document.getElementById("author").value;
+          const pages = document.getElementById("pages").value;
+          const haveRead = document.getElementById("read").checked;
+  
+          addBookToLibrary(title, author, pages, haveRead);
+        });
+      </script>
+</body>
+</html>
